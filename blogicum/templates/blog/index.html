@@ -5,7 +5,7 @@
 {% block content %}
   <h1>Лента записей</h1>                        
   <!-- Перебираем в цикле все посты -->
-  {% for post in posts %} 
+  {% for post in posts reversed %} 
     <hr>
     <article>
       <ul>
