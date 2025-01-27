@@ -21,9 +21,9 @@
       </ul>          
       <!-- Первые 10 слов -->
       <p>
-        {{ post.text|truncatewords:10 }}
+        {{ post.text|linebreaksbr|truncatewords:10 }}
       </p>
-      <a href="{% url 'blog:post_detail' forloop.counter0 %}">Читать полный текст</a>
+      <a href="{% url 'blog:post_detail' post.id %}">Читать полный текст</a>
     </article>
   {% endfor %}
 

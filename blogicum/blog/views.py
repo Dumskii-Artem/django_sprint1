@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import Http404
+from django.http import HttpResponse, HttpResponseNotFound
 
 posts = [
     {
@@ -14,7 +16,7 @@ posts = [
                 который назвал островом Отчаяния.''',
     },
     {
-        'id': 1,
+        'id': 10,
         'location': 'Остров отчаянья',
         'date': '1 октября 1659 года',
         'category': 'not-my-day',
@@ -30,7 +32,7 @@ posts = [
                 гиблого места.''',
     },
     {
-        'id': 2,
+        'id': 20,
         'location': 'Остров отчаянья',
         'date': '25 октября 1659 года',
         'category': 'not-my-day',
@@ -48,8 +50,12 @@ def index(request):
     return render(request, 'blog/index.html', {'posts': posts})
 
 
-def post_detail(request, id):
-    return render(request, 'blog/detail.html', {'post': posts[id]})
+def post_detail(request, post_id):
+    for post in posts:
+        if post['id'] == post_id:
+            return render(request, 'blog/detail.html', {'post': post})
+    raise Http404("Page not found")
+#  return HttpResponseNotFound("<h1>Page not found</h1>")
 
 
 def category_posts(request, category_slug):
